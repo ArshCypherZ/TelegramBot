@@ -1,4 +1,4 @@
-from bot import pgram, telethn, SUPPORT_CHAT, BOT_NAME
+from bot import pgram, telethn, SUPPORT_CHAT, BOT_NAME, LOGGER
 from uvloop import install
 from pyrogram import idle
 import asyncio
