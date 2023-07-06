@@ -3,7 +3,7 @@ version: "3.9"
 services:
   bot:
     build: .
-    image: bot:${TAG}
+    image: bot:latest
     container_name: bot
     network_mode: host # name of your network
     pull_policy: never
