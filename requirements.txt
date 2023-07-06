@@ -1,0 +1,8 @@
+pyrogram
+telethon
+uvloop
+asyncio
+tgcrypto
+cryptg
+tgcrypto
+hachoir

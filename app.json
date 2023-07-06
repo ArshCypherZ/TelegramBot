@@ -1,0 +1,41 @@
+{
+    "name": "TelegramBot",
+    "description": "Simple basic code for a telegram bot in Telethon and Pyrogram.",
+    "logo": "",
+    "keywords": [
+        "telegram",
+        "telethon",
+        "Pyrogram",
+        "telegram-bot"
+    ],
+    "repository": "https://github.com/ArshCypherZ/TelegramBot",
+    "website": "sempai.me",
+    "success_url": "https://t.me/SpiralTechDivision",
+    "env": {
+        "API_HASH": {
+            "description": "Your API HASH from my.telegram.org",
+            "value": ""
+        },
+        "API_ID": {
+            "description": "Your API ID from my.telegram.org",
+            "value": ""
+        },
+        "TOKEN": {
+            "description": "Bot token, get it from @BotFather.",
+            "value": ""
+        },
+        "BOT_NAME": {
+            "description": "Name of the bot",
+            "value": ""
+        },
+        "SUPPORT_CHAT": {
+            "description": "Username of your support chat without @",
+            "value": "SpiralTechDivision"
+        }
+    },
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ]
+}
