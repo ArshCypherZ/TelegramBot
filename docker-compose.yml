@@ -7,6 +7,12 @@ services:
     container_name: bot
     network_mode: host # name of your network
     pull_policy: never
+    environment:
+     - TOKEN
+     - BOT_NAME
+     - API_HASH
+     - API_ID
+     - SUPPORT_CHAT
   
 networks:
   default: 
