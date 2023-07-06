@@ -6,3 +6,4 @@ tgcrypto
 cryptg
 tgcrypto
 hachoir
+python-dotenv
