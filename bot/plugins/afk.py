@@ -42,7 +42,7 @@ async def afk(event):
         return
     start_afk_time = time.time()
     reason = args[1] if len(args) >= 2 else "none"
-    await start_afk(event.sender_id, reason)
+    start_afk(event.sender_id, reason)
     REDIS.set(f"afk_time_{event.sender_id}", start_afk_time)
     fname = event.sender.first_name
     await event.reply(f"{fname} is now away!")
@@ -53,13 +53,13 @@ async def no_longer_afk(event):
     if not event.from_id:  # ignore channels
         return
 
-    if not (await is_user_afk(event.sender_id)):  # Check if user is afk or not
+    if not (is_user_afk(event.sender_id)):  # Check if user is afk or not
         return
     end_afk_time = get_readable_time(
         (time.time() - float(REDIS.get(f"afk_time_{event.sender_id}")))
     )
     REDIS.delete(f"afk_time_{event.sender_id}")
-    if res := await end_afk(event.sender_id):
+    if res := end_afk(event.sender_id):
         firstname = event.sender.first_name
         await event.reply(f"{firstname} is back online!\n\nYou were gone for {end_afk_time}.")
 
@@ -89,14 +89,16 @@ async def reply_afk(event):
 
     elif event.reply_to_msg_id:
         r = await event.get_reply_message()
+        if not r.from_id:
+            return
         user_id = r.sender_id
         fst_name = r.sender.first_name
         await check_afk(event, user_id, fst_name, userc_id)
 
 
 async def check_afk(event, user_id, fst_name, userc_id):
-    if (await is_user_afk(user_id)):
-        reason = await afk_reason(user_id)
+    if (is_user_afk(user_id)):
+        reason = afk_reason(user_id)
         since_afk = get_readable_time(
             (time.time() - float(REDIS.get(f"afk_time_{user_id}")))
         )

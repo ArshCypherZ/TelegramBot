@@ -20,18 +20,18 @@ SOFTWARE.
 
 from bot import REDIS
 
-async def is_user_afk(userid):
+def is_user_afk(userid):
     return bool(rget := REDIS.get(f"is_afk_{userid}"))
 
-async def start_afk(userid, reason):
+def start_afk(userid, reason):
     REDIS.set(f"is_afk_{userid}", reason)
 
-async def afk_reason(userid):
-    return (await strb(REDIS.get(f"is_afk_{userid}")))
+def afk_reason(userid):
+    return (strb(REDIS.get(f"is_afk_{userid}")))
 
-async def end_afk(userid):
+def end_afk(userid):
     REDIS.delete(f"is_afk_{userid}")
     return True
 
-async def strb(redis_string):
+def strb(redis_string):
     return str(redis_string)
