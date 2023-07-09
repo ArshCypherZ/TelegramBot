@@ -54,7 +54,7 @@ async def no_longer_afk(event):
         return
     
     for ent, text in event.get_entities_text():
-            cum, gae = None, None
+        cum, gae = None, None
         if isinstance(ent, MessageEntityBotCommand):
             return
 
