@@ -13,6 +13,7 @@ services:
      - API_HASH
      - API_ID
      - SUPPORT_CHAT
+     - REDIS_URL
   
 networks:
   default: 

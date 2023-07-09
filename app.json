@@ -31,6 +31,10 @@
         "SUPPORT_CHAT": {
             "description": "Username of your support chat without @",
             "value": "SpiralTechDivision"
+        },
+        "REDIS_URL": {
+            "description": "Redis database link to store data",
+            "value": ""
         }
     },
     "buildpacks": [
