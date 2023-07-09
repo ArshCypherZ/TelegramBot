@@ -7,3 +7,4 @@ cryptg
 tgcrypto
 hachoir
 python-dotenv
+redis
