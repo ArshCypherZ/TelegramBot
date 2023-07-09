@@ -29,7 +29,7 @@ from bot.utils import get_readable_time
 from bot.database.afk_redis import afk_reason, end_afk, is_user_afk, start_afk
 
 from telethon import events
-from telethon.tl.types import MessageEntityMention
+from telethon.tl.types import MessageEntityMention, MessageEntityMentionName
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
@@ -69,22 +69,23 @@ async def reply_afk(event):
     userc_id = event.sender_id
     if event.entities:
         chk_users = []
+        for ent, text in event.get_entities_text():
+            cum, gae = None, None
         if isinstance(ent, MessageEntityMentionName):
             users = ent.user_id
         elif isinstance(ent, MessageEntityMention):
-            for m in r.get_entities_text():
-                users = await get_userid_by_name(m)
+            users = await get_userid_by_name(text)
         else:
-            return
+            users = None
         
         if users in chk_users:
             return
         chk_users.append(users)
         
-        gae = await telethn.get_entity(users)
+        if users:
+            gae = await telethn.get_entity(users)
         fst_name = gae.first_name 
-
-    await check_afk(event, user_id, fst_name, userc_id)
+        await check_afk(event, user_id, fst_name, userc_id)
 
     elif event.reply_to_msg_id:
         r = await event.get_reply_message()
