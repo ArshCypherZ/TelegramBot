@@ -84,8 +84,8 @@ async def reply_afk(event):
         
         if users:
             gae = await telethn.get_entity(users)
-        fst_name = gae.first_name 
-        await check_afk(event, user_id, fst_name, userc_id)
+            fst_name = gae.first_name 
+            await check_afk(event, users, fst_name, userc_id)
 
     elif event.reply_to_msg_id:
         r = await event.get_reply_message()
