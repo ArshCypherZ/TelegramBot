@@ -68,28 +68,25 @@ async def no_longer_afk(event):
 async def reply_afk(event):
     userc_id = event.sender_id
     if event.entities:
-        if any(isinstance(e, MessageEntityMention) for e in event.entities):
-            chk_users = []
-            entity = next(e for e in event.entities if isinstance(e, MessageEntityMention))
-                users = entity.user_id
-                fst_name = entity.user.first_name
-                if users in chk_users:
-                    return
-                chk_users.append(users)               
-            
-            try:
-                chat = telethn.get_entity(users)
-            except:
-                LOGGER.info(f"Error: Could not fetch userid {users} for AFK module")
-                return
-            fst_name = chat.first_name
-
+        chk_users = []
+        if isinstance(ent, MessageEntityMentionName):
+            users = ent.user_id
+        elif isinstance(ent, MessageEntityMention):
+            for m in r.get_entities_text():
+                users = await get_userid_by_name(m)
         else:
             return
+        
+        if users in chk_users:
+            return
+        chk_users.append(users)
+        
+        gae = await telethn.get_entity(users)
+        fst_name = gae.first_name 
 
-        await check_afk(event, user_id, fst_name, userc_id)
+    await check_afk(event, user_id, fst_name, userc_id)
 
-    elif event.reply:
+    elif event.reply_to_msg_id:
         r = await event.get_reply_message()
         user_id = r.sender_id
         fst_name = r.sender.first_name
