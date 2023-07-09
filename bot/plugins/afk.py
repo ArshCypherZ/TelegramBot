@@ -73,24 +73,21 @@ async def no_longer_afk(event):
 async def reply_afk(event):
     userc_id = event.sender_id
     if event.entities:
-        chk_users = []
         for ent, text in event.get_entities_text():
             cum, gae = None, None
-        if isinstance(ent, MessageEntityMentionName):
-            users = ent.user_id
-        elif isinstance(ent, MessageEntityMention):
-            users = await get_userid_by_name(text)
-        else:
-            users = None
-        
-        if users in chk_users:
-            return
-        chk_users.append(users)
+            if isinstance(ent, MessageEntityMentionName):
+                users = ent.user_id
+            elif isinstance(ent, MessageEntityMention):
+                users = await get_userid_by_name(text)
+            else:
+                users = None
         
         if users:
             gae = await telethn.get_entity(users)
             fst_name = gae.first_name 
             await check_afk(event, users, fst_name, userc_id)
+        else:
+            return
 
     elif event.reply_to_msg_id:
         r = await event.get_reply_message()
