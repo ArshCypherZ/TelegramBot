@@ -29,7 +29,7 @@ from bot.utils import get_readable_time, get_userid_by_name
 from bot.database.afk_redis import afk_reason, end_afk, is_user_afk, start_afk
 
 from telethon import events
-from telethon.tl.types import MessageEntityMention, MessageEntityMentionName
+from telethon.tl.types import MessageEntityMention, MessageEntityMentionName, MessageEntityBotCommand
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
@@ -52,6 +52,11 @@ async def afk(event):
 async def no_longer_afk(event):
     if not event.from_id:  # ignore channels
         return
+    
+    for ent, text in event.get_entities_text():
+            cum, gae = None, None
+        if isinstance(ent, MessageEntityBotCommand):
+            return
 
     if not (is_user_afk(event.sender_id)):  # Check if user is afk or not
         return
