@@ -12,4 +12,7 @@ async def handle_new_message(event):
         user_name = event.sender.username
     except:
         user_name = "None"
+    
+    if REDIS.hget('user', user_id, user_name):
+        return
     REDIS.hset('user', user_id, user_name)

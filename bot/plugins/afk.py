@@ -25,7 +25,7 @@ SOFTWARE.
 import time
 
 from bot import REDIS, telethn
-from bot.utils import get_readable_time
+from bot.utils import get_readable_time, get_userid_by_name
 from bot.database.afk_redis import afk_reason, end_afk, is_user_afk, start_afk
 
 from telethon import events
