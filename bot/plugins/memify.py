@@ -17,7 +17,7 @@ async def handler(event):
     if not reply_message.media:
         return await event.reply("```Reply to a image/sticker.```")
     file = await telethn.download_media(reply_message)
-    text = str(event.pattern_match.group(1)).strip()
+    text = event.text.split(None, 1)[1]
     if len(text) < 1:
         return await event.reply("You might want to try `/mmf text`")
     try:
