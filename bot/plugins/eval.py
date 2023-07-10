@@ -1,6 +1,7 @@
 from bot import pgram, telethn
 from telethon import events
-
+import os
+import sys
 
 @telethn.on(events.NewMessage(incoming=True, pattern="/eval"))
 async def eval_e(event):
