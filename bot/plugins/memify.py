@@ -3,7 +3,7 @@ import textwrap
 
 from PIL import Image, ImageDraw, ImageFont
 
-from Emilia import telethn
+from bot import telethn
 
 
 @telethn.on(events.NewMessage(incoming=True, pattern="/mmf"))
