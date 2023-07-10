@@ -8,7 +8,7 @@ async def eval_e(event):
         return
     if len(event.text) > 5 and event.text[5] != " ":
         return
-    xx = await eor(event, "`Processing..`")
+    xx = await event.reply("`Processing..`")
     try:
         cmd = event.text.split(" ", maxsplit=1)[1]
     except IndexError:
