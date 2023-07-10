@@ -4,6 +4,7 @@ import textwrap
 from PIL import Image, ImageDraw, ImageFont
 
 from bot import telethn
+from telethon import events
 
 
 @telethn.on(events.NewMessage(incoming=True, pattern="/mmf"))
