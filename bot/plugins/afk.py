@@ -24,7 +24,7 @@ SOFTWARE.
 
 import time
 
-from bot import REDIS, telethn
+from bot import REDIS, telethn, LOGGER
 from bot.utils import get_readable_time, get_userid_by_name
 from bot.database.afk_redis import afk_reason, end_afk, is_user_afk, start_afk
 
@@ -77,13 +77,16 @@ async def reply_afk(event):
             cum, gae = None, None
             if isinstance(ent, MessageEntityMentionName):
                 users = ent.user_id
+                LOGGER.info(users)
             elif isinstance(ent, MessageEntityMention):
                 users = await get_userid_by_name(text)
+                LOGGER.info(users)
             else:
                 users = None
             
             if users:
                 gae = await telethn.get_entity(users)
+                LOGGER.info(gae)
                 fst_name = gae.first_name 
                 await check_afk(event, users, fst_name, userc_id)
             else:

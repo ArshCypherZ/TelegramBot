@@ -9,3 +9,5 @@ hachoir
 python-dotenv
 redis
 pillow==9.5.0
+bing_image_downloader
+requests
