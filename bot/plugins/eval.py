@@ -38,10 +38,7 @@ async def eval_e(event):
         evaluation = stdout
     else:
         evaluation = "Success"
-    final_output = "**OUTPUT**: \n```{}``` \n".format(
-        cmd,
-        evaluation,
-    )
+    final_output = f"**OUTPUT**: \n```{cmd}``` \n"
     if len(final_output) > 4096:
         lmao = final_output.replace("`", "").replace("**", "").replace("__", "")
         with io.BytesIO(str.encode(lmao)) as out_file:
