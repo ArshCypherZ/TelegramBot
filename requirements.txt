@@ -8,3 +8,4 @@ tgcrypto
 hachoir
 python-dotenv
 redis
+pillow
