@@ -8,4 +8,4 @@ tgcrypto
 hachoir
 python-dotenv
 redis
-pillow
+pillow==9.5.0
