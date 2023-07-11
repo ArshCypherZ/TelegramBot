@@ -54,36 +54,8 @@ def get_readable_time(seconds: int) -> str:
 "--------------------------------------------------------------------------------------"
 
 
-async def get_userid_by_name(username):
-    return (REDIS.hget('user', username))
-
-
-
 async def get_user_id(username):
-    # ensure valid userid
-    if len(username) <= 5:
-        return None
-
-    if username.startswith("@"):
-        username = username[1:]
-
-    users = await get_userid_by_name(username)
-
-    if not users:
-        return None
-
-    elif len(users) == 1:
-        return users[0].user_id
-
-    else:
-        try:
-            userdat = await telethn.get_entity(users)
-            if userdat.username == username:
-                return userdat.id
-        except:
-            LOGGER.info("Error extracting user id.")
-
-    return None
+    return (REDIS.hget('user', username))
 
 "---------------------------------------------------------------------------------"
 
