@@ -76,13 +76,12 @@ async def get_user_id(username):
         return users[0].user_id
 
     else:
-        for user_obj in users:
-            try:
-                userdat = await telethn.get_entity(user_obj.user_id)
-                if userdat.username == username:
-                    return userdat.id
-            except:
-                LOGGER.info("Error extracting user id.")
+        try:
+            userdat = await telethn.get_entity(users)
+            if userdat.username == username:
+                return userdat.id
+        except:
+            LOGGER.info("Error extracting user id.")
 
     return None
 
