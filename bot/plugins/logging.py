@@ -7,14 +7,7 @@ async def handle_new_message(event):
         return
     # Save user in Redis
     user_id = event.sender_id
-    user_name = ""
-    try:
-        user_name = event.sender.username
-    except:
-        user_name = "None"
+    user_name = event.sender.username  
     if REDIS.hget('user', user_name) == user_id:
         return
-    try:
-        REDIS.hset('user', user_id, user_name)
-    except:
-        return
+    REDIS.hset('user', user_name, user_id)
