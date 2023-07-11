@@ -53,10 +53,8 @@ def get_readable_time(seconds: int) -> str:
 
 
 async def get_userid_by_name(username):
-    try:
-        return (REDIS.hget('user', username))
-    except:
-        return None
+    return (REDIS.hget('user', username))
+
 
 
 async def get_user_id(username):

@@ -25,7 +25,7 @@ SOFTWARE.
 import time
 
 from bot import REDIS, telethn, LOGGER
-from bot.utils import get_readable_time, get_userid_by_name
+from bot.utils import get_readable_time, get_user_id
 from bot.database.afk_redis import afk_reason, end_afk, is_user_afk, start_afk
 
 from telethon import events
@@ -80,9 +80,7 @@ async def reply_afk(event):
                 LOGGER.info(users)
             elif isinstance(ent, MessageEntityMention):
                 LOGGER.info(text)
-                gae = text.replace("@", "")
-                LOGGER.info(gae)
-                users = await get_userid_by_name(gae)
+                users = await get_user_id(text)
                 LOGGER.info(users)
             else:
                 users = None
