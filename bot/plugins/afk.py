@@ -79,7 +79,8 @@ async def reply_afk(event):
                 users = ent.user_id
                 LOGGER.info(users)
             elif isinstance(ent, MessageEntityMention):
-                users = await get_userid_by_name(text)
+                gae = text.replace("@", "")
+                users = await get_userid_by_name(gae)
                 LOGGER.info(users)
             else:
                 users = None
