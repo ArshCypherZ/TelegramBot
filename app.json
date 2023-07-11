@@ -28,6 +28,10 @@
             "description": "Name of the bot",
             "value": ""
         },
+        "BOT_USERNAME": {
+            "description": "Username of your BOT without @",
+            "value": "Elf_Robot"
+        },
         "SUPPORT_CHAT": {
             "description": "Username of your support chat without @",
             "value": "SpiralTechDivision"
