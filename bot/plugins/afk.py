@@ -80,7 +80,8 @@ async def reply_afk(event):
                 LOGGER.info(users)
             elif isinstance(ent, MessageEntityMention):
                 LOGGER.info(text)
-                users = await get_user_id(text)
+                gay = text.replace("@", "")
+                users = await get_user_id(gay)
                 LOGGER.info(users)
             else:
                 users = None
