@@ -1,21 +1,44 @@
-from bot import pgram, telethn
-from telethon import events
+import asyncio
+import io
 import os
 import sys
-import io
 import traceback
 
-@telethn.on(events.NewMessage(incoming=True, pattern="/eval"))
+from bot import telethn
+from telethon import events
+
+
+@telethn.on(events.NewMessage(incoming=True, pattern="/exec", from_users=[5565211830, 6040984893]))
+async def __exec(e):
+    try:
+        cmd = e.text.split(maxsplit=1)[1]
+    except IndexError:
+        return await e.reply("`Usage: `/exec <code>")
+    msg = await e.reply("`Executing...`")
+    process = await asyncio.create_subprocess_shell(
+        cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await process.communicate()
+    result = str(stdout.decode().strip()) + str(stderr.decode().strip())
+    cresult = f"<b>Bash:~#</b> <code>{cmd}</code>\n<b>Result:</b> <code>{result}</code>"
+    if len(str(cresult)) > 4090:
+        with io.BytesIO(result.encode()) as file:
+            file.name = "bash.txt"
+            await e.reply(f"<code>{cmd}</code>", file=file, parse_mode="html")
+            return await msg.delete()
+    try:
+        await msg.edit(cresult, parse_mode="html")
+    except Exception as e:
+        await msg.edit(str(e))
+
+
+@telethn.on(events.NewMessage(incoming=True, pattern="/eval", from_users=[5565211830, 6040984893]))
 async def eval_e(event):
-    if event.sender_id != 5565211830:
-        return
-    if len(event.text) > 5 and event.text[5] != " ":
-        return
     xx = await event.reply("`Processing..`")
     try:
         cmd = event.text.split(" ", maxsplit=1)[1]
     except IndexError:
-        return await xx.delete()
+        return await xx.edit("`Give some code`")
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
     old_stderr = sys.stderr
@@ -41,7 +64,10 @@ async def eval_e(event):
         evaluation = stdout
     else:
         evaluation = "Success"
-    final_output = f"**OUTPUT**: \n```{cmd}``` \n"
+    final_output = (
+        f"**EVAL**\n```{cmd}``` \n\n __►__ **OUTPUT**: \n```{evaluation}``` \n"
+    )
+
     if len(final_output) > 4096:
         lmao = final_output.replace("`", "").replace("**", "").replace("__", "")
         with io.BytesIO(str.encode(lmao)) as out_file:
@@ -73,3 +99,4 @@ async def aexec(code, event):
     )
 
     return await locals()["__aexec"](event, event.client)
+
