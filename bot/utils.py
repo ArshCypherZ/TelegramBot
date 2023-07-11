@@ -10,7 +10,7 @@ from typing import List
 
 from pyrogram import Client, errors, raw
 
-from bot import REDIS
+from bot import REDIS, LOGGER, telethn
 
 def load_plugins(plugin_name):
     path = Path(f"bot/plugins/{plugin_name}.py")
